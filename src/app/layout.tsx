@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
+import "@/styles/novel/prosemirror.css";
+import "katex/dist/katex.min.css";
 import { getLocale, getTranslations } from "next-intl/server";
 import { DEFAULT_METADATA } from "@/config/metadata";
 import { cn } from "@/lib/utils";

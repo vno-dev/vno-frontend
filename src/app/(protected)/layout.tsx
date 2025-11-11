@@ -1,4 +1,4 @@
-import { auth } from "@/auth";
+// import { auth } from "@/auth";
 import { AppSidebar } from "@/components/layouts/sidebar/app-sidebar";
 import SidebarBreadcrumbs from "@/components/layouts/sidebar/breadcrumbs";
 import {
@@ -11,8 +11,8 @@ import { redirect, RedirectType } from "next/navigation";
 import { PropsWithChildren } from "react";
 type NotionAppLayoutProps = PropsWithChildren;
 const NotionAppLayout = async ({ children }: NotionAppLayoutProps) => {
-  const session = await auth();
-  if (!session)
+//   const session = await auth();
+//   if (!session)
     return (
       <SidebarProvider>
         <AppSidebar />
