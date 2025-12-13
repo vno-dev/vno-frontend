@@ -21,6 +21,7 @@ export function getUrlFromString(str: string) {
       return new URL(`https://${str}`).toString();
     }
   } catch (_e) {
+    console.log("🚀 ~ getUrlFromString ~ _e:", _e)
     return null;
   }
 }

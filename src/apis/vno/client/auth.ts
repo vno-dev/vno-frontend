@@ -14,7 +14,7 @@ export class AuthApiClient extends VnoCrudApiClient {
   }
 
   signIn(request: ISignInRequest): Promise<ISignInResponse> {
-    return this.client.post("/sign-in", request.body, {
+    return this.client.post("/login", request.body, {
       params: request.params,
     });
   }

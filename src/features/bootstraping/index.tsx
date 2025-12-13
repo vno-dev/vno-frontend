@@ -1,21 +1,35 @@
 "use client";
 
+import { apiClient } from "@/apis/vno";
+import { signOut } from "@/auth";
+import { useRouter } from "@/lib/navigation";
+import { useAuthStore } from "@/stores/auth";
+import { useQuery } from "@tanstack/react-query";
+import { useSession } from "next-auth/react";
+import { useEffect } from "react";
+
 const ClientBootstraping = () => {
-//   const { isOpen, _hasHydrated } = useOnboardingStore();
-//   const router = useRouter();
+  const { data: session } = useSession();
+  const router = useRouter();
+  const { data: user, isError } = useQuery({
+    queryKey: ["vno/auth/me"],
+    queryFn: () => apiClient.auth.me(),
+    retry: false,
+    enabled: !!session,
+  });
 
-//   useEffect(() => {
-//     useOnboardingStore.persist.rehydrate();
-//   }, []);
+  const { setUser } = useAuthStore();
 
-//   useEffect(() => {
-//     console.log("hydrated?", _hasHydrated);
-//     if (!_hasHydrated) return;
-//     if (isOpen) {
-//       router.push("/onboarding");
-//     }
-//   }, [isOpen, _hasHydrated, router]);
+  useEffect(() => {
+    setUser(user?.data as never);
+  }, [setUser, user]);
 
+  useEffect(() => {
+    if (isError) {
+      signOut({ redirect: false });
+      router.replace("/login");
+    }
+  }, [isError, router]);
   return null;
 };
 

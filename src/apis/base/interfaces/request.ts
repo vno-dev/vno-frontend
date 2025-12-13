@@ -23,6 +23,11 @@ export interface BaseGetByIdRequest extends BaseRequest {
     id: string;
   };
 }
+export interface BaseGetBySlugRequest extends BaseRequest {
+  pathParams: {
+    slug: string;
+  };
+}
 
 export interface BaseUpdateRequest<T extends BaseRecord = BaseRecord> extends BaseRequest {
   pathParams: {

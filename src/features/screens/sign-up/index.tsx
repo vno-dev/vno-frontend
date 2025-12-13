@@ -5,7 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import { FC } from "react";
 import { toast } from "sonner";
-import { appClient, ISignUpRequest } from "@/apis/vno";
+import { apiClient, ISignUpRequest } from "@/apis/vno";
 import { useRouter } from "@/lib/navigation";
 import SignUpForm from "@/forms/sign-up";
 
@@ -17,7 +17,7 @@ const SignUpScreen: FC<SignUpScreenProps> = () => {
 
   const { mutateAsync: handleSubmit } = useMutation({
     mutationFn: async (val: ISignUpRequest["body"]) => {
-      await appClient.auth.signUp({ body: val, params: { provider: "email" } });
+      await apiClient.auth.signUp({ body: val });
       await signIn("password", { redirect: false, ...val });
     },
     onError(error) {

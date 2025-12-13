@@ -10,9 +10,3 @@ export interface NavItem {
     url: string;
   }[];
 }
-
-export interface Project {
-  title: string;
-  url: string;
-  color: string;
-}

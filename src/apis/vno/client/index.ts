@@ -1,9 +1,13 @@
 import { AuthApiClient } from "./auth";
-import { CategoriesApiClient } from "./category";
+import { OrganizerApiClient } from "./organizers";
+import { PagesApiClient } from "./page";
+import { WorkspacesApiClient } from "./workspace";
 
-class VnoClient {
-  categoris = new CategoriesApiClient();
+class ApiClient {
   auth = new AuthApiClient();
+  organizers = new OrganizerApiClient();
+  workspaces = new WorkspacesApiClient();
+  pages = new PagesApiClient()
 }
 
-export const appClient = new VnoClient();
+export const apiClient = new ApiClient();

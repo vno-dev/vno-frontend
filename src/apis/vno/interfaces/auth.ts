@@ -6,9 +6,9 @@ export interface ISignInRequest extends BaseRequest {
     email: string;
     password: string;
   };
-  params: {
-    provider: "email";
-  };
+//   params: {
+//     provider: "email";
+//   };
 }
 
 export type ISignInResponse = BaseResponse<{
@@ -18,13 +18,9 @@ export type ISignInResponse = BaseResponse<{
 
 export interface ISignUpRequest extends BaseRequest {
   body: {
-    first_name: string;
-    last_name: string;
+    name: string
     email: string;
     password: string;
-  };
-  params: {
-    provider: "email";
   };
 }
 

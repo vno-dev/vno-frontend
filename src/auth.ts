@@ -1,7 +1,7 @@
 import { decode } from "jsonwebtoken";
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-import { appClient } from "./apis/vno";
+import { apiClient } from "./apis/vno";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -12,18 +12,18 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
       async authorize(credentials) {
         try {
-          const res = await appClient.auth.signIn({
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-expect-error
-            body: { email: credentials.email, password: credentials.password },
-            params: { provider: "email" },
+          const res = await apiClient.auth.signIn({
+            body: {
+              email: credentials.email as string,
+              password: credentials.password as string,
+            },
           });
 
           return {
             email: res.data.user.email,
             id: res.data.user.id,
-            image: res.data.user.avatar,
-            name: res.data.user.first_name,
+            image: res.data.user.avatarUrl,
+            name: res.data.user.name,
             token: res.data.accessToken,
           };
         } catch (error) {

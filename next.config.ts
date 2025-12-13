@@ -1,4 +1,4 @@
-import { APP_API_URL } from "@/config/env";
+import { VNO_API_URL } from "@/config/env";
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
@@ -15,7 +15,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/vno-api/v1/:path*",
-        destination: `${APP_API_URL}/api/:path*`,
+        destination: `${VNO_API_URL}/api/:path*`,
       },
     ];
   },

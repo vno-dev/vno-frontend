@@ -133,8 +133,8 @@ function Button<C extends React.ElementType = "button">({
                 animate={{ scale: 2, opacity: 0 }}
                 exit={{ opacity: 0 }}
                 transition={{
-                  duration: 0.6,
-                  ease: "easeOut",
+                  duration: 0.5,
+                  ease: "easeInOut",
                 }}
               />
             ))}

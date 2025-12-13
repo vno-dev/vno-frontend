@@ -122,6 +122,7 @@ export const sidebarConfigs = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+
   return (
     <Sidebar variant="inset" {...props}>
       <SidebarHeader>
@@ -129,7 +130,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={sidebarConfigs.navMain} />
-        <NavProjects projects={sidebarConfigs.projects} />
+        <NavProjects />
         <NavSecondary items={sidebarConfigs.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>

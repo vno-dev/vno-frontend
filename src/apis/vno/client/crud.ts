@@ -1,5 +1,5 @@
 import { BaseCrudApiClient, BaseRecord } from "@/apis/base";
-import { APP_API_URL } from "@/config/env";
+import { VNO_API_URL } from "@/config/env";
 import { Session } from "next-auth";
 import { getSession } from "next-auth/react";
 
@@ -24,7 +24,7 @@ export class VnoCrudApiClient<
   constructor({ resource }: IVnoCrudApiClientOptions) {
     const baseUrl =
       typeof window === "undefined"
-        ? `${APP_API_URL}/${resource}`
+        ? `${VNO_API_URL}/api/${resource}`
         : `${window.location.origin}/vno-api/v1/${resource}`;
     super({ baseUrl });
     this.client.interceptors.request.use(async (config) => {

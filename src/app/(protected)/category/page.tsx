@@ -1,5 +1,5 @@
 "use client";
-import { appClient } from "@/apis/vno";
+import { apiClient } from "@/apis/vno";
 import { CONST_REVALIDATE_TAGS } from "@/const";
 import { AppTopbar } from "@/lib/navigation";
 import { useQuery } from "@tanstack/react-query";
@@ -11,7 +11,7 @@ const CategoryPage = () => {
   const t = useTranslations("HomePage");
   const { data, isLoading } = useQuery({
     queryKey: [CONST_REVALIDATE_TAGS.CATEGORIES],
-    queryFn: async () => appClient.categoris.getAll({}),
+    queryFn: async () => apiClient.categoris.getAll({}),
   });
 
   if (isLoading) {
