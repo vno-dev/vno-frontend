@@ -5,7 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import { FC } from "react";
 import { toast } from "sonner";
-import { apiClient, ISignUpRequest } from "@/apis/vno";
+import { ISignUpRequest } from "@/apis/vno";
 import { useRouter } from "@/lib/navigation";
 import SignUpForm from "@/forms/sign-up";
 
@@ -13,18 +13,20 @@ type SignUpScreenProps = object;
 
 const SignUpScreen: FC<SignUpScreenProps> = () => {
   const searchParams = useSearchParams();
-  const router = useRouter();
-
   const { mutateAsync: handleSubmit } = useMutation({
     mutationFn: async (val: ISignUpRequest["body"]) => {
-      await apiClient.auth.signUp({ body: val });
-      await signIn("password", { redirect: false, ...val });
+      await signIn("password", {
+        mode: "signup",
+        redirect: false,
+        ...val,
+      });
     },
     onError(error) {
       toast.error(error.message);
     },
     onSuccess() {
-      router.replace(searchParams.get("redirect") || "/");
+      toast.success("Tài khoản đã được tạo.");
+      window.location.replace(searchParams.get("redirect") || "/");
     },
   });
 

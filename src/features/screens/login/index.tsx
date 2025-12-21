@@ -15,6 +15,7 @@ const LoginScreen: FC<LoginScreenProps> = () => {
   const { mutateAsync: handleSubmit } = useMutation({
     mutationFn: async (val: Record<string, string>) => {
       const res = await signIn("password", { redirect: false, ...val });
+      console.log("🚀 ~ LoginScreen ~ res:", res);
       if (res?.error) throw new Error("Email hoặc mật khẩu không chính xác");
     },
     onError(error) {

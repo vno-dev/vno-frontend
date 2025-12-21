@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Montserrat } from "next/font/google";
+import { Inter, Montserrat } from "next/font/google";
 import "./globals.css";
 import "@/styles/novel/prosemirror.css";
 import "katex/dist/katex.min.css";
@@ -12,6 +12,12 @@ import Providers from "./providers";
 const montserrat = Montserrat({
   subsets: ["vietnamese"],
   variable: "--font-montserrat",
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
@@ -43,7 +49,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} suppressHydrationWarning className="select-none">
-      <body className={cn(montserrat.variable, "antialiased")}>
+      <body className={cn(montserrat.variable, inter.variable, "antialiased")}>
         <Providers>{children}</Providers>
 
         {DEVTOOL.ENABLED && (

@@ -1,5 +1,4 @@
 import { BaseRequest, BaseResponse } from "@/apis/base";
-import { IUser } from "./user";
 
 export interface ISignInRequest extends BaseRequest {
   body: {
@@ -13,7 +12,7 @@ export interface ISignInRequest extends BaseRequest {
 
 export type ISignInResponse = BaseResponse<{
   accessToken: string;
-  user: IUser;
+  refreshToken: string;
 }>;
 
 export interface ISignUpRequest extends BaseRequest {
@@ -26,5 +25,13 @@ export interface ISignUpRequest extends BaseRequest {
 
 export type ISignUpResponse = BaseResponse<{
   accessToken: string;
-  user: IUser;
+  refreshToken: string;
 }>;
+
+
+export interface IUpdateProfileRequest extends BaseRequest {
+  body: {
+    name: string;
+    avatarUrl: string;
+  };
+}

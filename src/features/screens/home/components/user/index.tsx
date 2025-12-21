@@ -1,4 +1,4 @@
-import AnimatedContent from "@/components/animate-content";
+import AnimatedContent from "@/components/animates/animate-content";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { GridIcon } from "@/icons";

@@ -37,7 +37,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { useSearchParams } from "next/navigation";
-import Beams from "@/components/animate-backgrounds/beams";
+import Beams from "@/components/animates/animate-backgrounds/beams";
 
 const signInSchema = z.object({
   email: z

@@ -4,6 +4,7 @@ import NextTopLoader from "nextjs-toploader";
 import AppWrapper from "@/components/layouts/wrapper";
 import { NextIntlClientProvider } from "next-intl";
 import AppSessionProvider from "@/providers/session";
+import { FontProvider } from "@/providers/font";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
@@ -12,7 +13,9 @@ export default function Providers({ children }: { children: React.ReactNode }) {
       <NextIntlClientProvider>
         <RqProvider>
           <AppSessionProvider>
-            <AppWrapper>{children}</AppWrapper>
+            <AppWrapper>
+              <FontProvider>{children}</FontProvider>
+            </AppWrapper>
           </AppSessionProvider>
         </RqProvider>
       </NextIntlClientProvider>

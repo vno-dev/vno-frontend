@@ -6,7 +6,6 @@ import { getSession } from "next-auth/react";
 export interface IVnoCrudApiClientOptions {
   resource: string;
 }
-
 if (typeof window !== "undefined" && !window.__NEXTAUTH_SESSION__) {
   window.__NEXTAUTH_SESSION__ = getSession();
 }
@@ -24,7 +23,7 @@ export class VnoCrudApiClient<
   constructor({ resource }: IVnoCrudApiClientOptions) {
     const baseUrl =
       typeof window === "undefined"
-        ? `${VNO_API_URL}/api/${resource}`
+        ? `${VNO_API_URL}/api/v1/${resource}`
         : `${window.location.origin}/vno-api/v1/${resource}`;
     super({ baseUrl });
     this.client.interceptors.request.use(async (config) => {

@@ -10,6 +10,11 @@ export function useLogout() {
         callbackUrl: callbackUrl ?? "/login",
       });
     },
+    onSuccess: () => {
+      if (typeof window !== "undefined") {
+        window.__NEXTAUTH_SESSION__ = undefined;
+      }
+    },
   });
 
   const logout = async (callbackUrl?: string) => {

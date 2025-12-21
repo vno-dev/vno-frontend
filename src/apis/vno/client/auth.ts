@@ -5,6 +5,7 @@ import {
   ISignInResponse,
   ISignUpRequest,
   ISignUpResponse,
+  IUpdateProfileRequest,
 } from "../interfaces";
 import { IUser } from "../interfaces/user";
 
@@ -28,4 +29,10 @@ export class AuthApiClient extends VnoCrudApiClient {
   me(): Promise<BaseResponse<IUser>> {
     return this.client.get("/me");
   }
+
+  updateProfile: (
+    request: IUpdateProfileRequest
+  ) => Promise<BaseResponse<IUser>> = () => {
+    return this.client.put("/me");
+  };
 }

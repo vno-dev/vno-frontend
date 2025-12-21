@@ -9,30 +9,36 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       credentials: {
         email: {},
         password: {},
-      },
-      async authorize(credentials) {
-        try {
-          const res = await apiClient.auth.signIn({
-            body: {
-              email: credentials.email as string,
-              password: credentials.password as string,
-            },
-          });
-
-          return {
-            email: res.data.user.email,
-            id: res.data.user.id,
-            image: res.data.user.avatarUrl,
-            name: res.data.user.name,
-            token: res.data.accessToken,
-          };
-        } catch (error) {
-          throw error;
-        }
+        name: {},
+        mode: {},
       },
       type: "credentials",
       name: "password",
       id: "password",
+      async authorize(credentials) {
+        console.log("🚀 ~ credentials:", credentials);
+        const res =
+          credentials.mode === "signup"
+            ? await apiClient.auth.signUp({
+                body: {
+                  email: credentials.email as string,
+                  password: credentials.password as string,
+                  name: credentials.name as string,
+                },
+              })
+            : await apiClient.auth.signIn({
+                body: {
+                  email: credentials.email as string,
+                  password: credentials.password as string,
+                },
+              });
+
+        return {
+          email: credentials.email as string,
+          name: credentials.name as string,
+          token: res.data.accessToken,
+        };
+      },
     }),
   ],
   pages: {

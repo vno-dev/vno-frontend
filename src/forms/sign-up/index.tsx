@@ -36,7 +36,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { useSearchParams, useRouter } from "next/navigation";
-import Beams from "@/components/animate-backgrounds/beams";
+import Beams from "@/components/animates/animate-backgrounds/beams";
 
 // --- Signup schema ---
 const signUpSchema = z.object({

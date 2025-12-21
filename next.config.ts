@@ -15,7 +15,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/vno-api/v1/:path*",
-        destination: `${VNO_API_URL}/api/:path*`,
+        destination: `${VNO_API_URL}/api/v1/:path*`,
       },
     ];
   },
