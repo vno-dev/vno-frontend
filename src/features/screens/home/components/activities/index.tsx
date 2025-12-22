@@ -45,7 +45,7 @@ const HomeScreenActivities = () => {
   return (
     <div>
       <HeadingSection title="Activities">
-        <ul className="space-y-5 bg-white p-4 rounded-lg border border-border">
+        <ul className="space-y-5 bg-card p-4 rounded-lg border border-border">
           {sampleData.map((a) => (
             <li key={a.id} className="flex items-center justify-between">
               <div className="flex items-center gap-3">

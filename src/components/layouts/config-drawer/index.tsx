@@ -1,3 +1,4 @@
+'use client'
 import { type SVGProps } from "react";
 import { Root as Radio, Item } from "@radix-ui/react-radio-group";
 import { CircleCheck, RotateCcw, Settings } from "lucide-react";
@@ -67,7 +68,7 @@ export function ConfigDrawer() {
           <ThemeConfig />
           <SidebarConfig />
           <LayoutConfig />
-          <DirConfig />
+          {/* <DirConfig /> */}
         </div>
         <SheetFooter className="gap-2">
           <Button

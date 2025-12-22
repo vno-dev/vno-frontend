@@ -10,14 +10,17 @@ import { SearchProvider } from "@/providers/searchs";
 import { headers } from "next/headers";
 import { redirect, RedirectType } from "next/navigation";
 import { PropsWithChildren } from "react";
-import { getCookie } from "cookies-next/server";
 import { cn } from "@/lib/utils";
+import { cookies } from "next/headers";
 import { ConfigDrawer } from "@/components/layouts/config-drawer";
+
 type NotionAppLayoutProps = PropsWithChildren;
 const NotionAppLayout = async ({ children }: NotionAppLayoutProps) => {
   const session = await auth();
-  const defaultOpen = (await getCookie("sidebar_state")) !== "false";
-  if (session)
+  const cookieList = await cookies();
+
+  const defaultOpen = cookieList.get("sidebar_state")?.value !== "false";
+  if (!session)
     return (
       <SearchProvider>
         <LayoutProvider>
