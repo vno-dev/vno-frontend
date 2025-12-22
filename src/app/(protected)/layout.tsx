@@ -20,7 +20,7 @@ const NotionAppLayout = async ({ children }: NotionAppLayoutProps) => {
   const cookieList = await cookies();
 
   const defaultOpen = cookieList.get("sidebar_state")?.value !== "false";
-  if (!session)
+  if (session)
     return (
       <SearchProvider>
         <LayoutProvider>
