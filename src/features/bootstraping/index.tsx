@@ -2,6 +2,7 @@
 
 import { apiClient } from "@/apis/vno";
 import { signOut } from "@/auth";
+import { Toaster } from "@/components/ui/sonner";
 import { useRouter } from "@/lib/navigation";
 import { useAuthStore } from "@/stores/auth";
 import { useQuery } from "@tanstack/react-query";
@@ -30,7 +31,11 @@ const ClientBootstraping = () => {
       router.replace("/login");
     }
   }, [isError, router]);
-  return null;
+  return (
+    <>
+      <Toaster />
+    </>
+  );
 };
 
 export default ClientBootstraping;

@@ -6,7 +6,6 @@ import { useSearchParams } from "next/navigation";
 import { FC } from "react";
 import { toast } from "sonner";
 import { ISignUpRequest } from "@/apis/vno";
-import { useRouter } from "@/lib/navigation";
 import SignUpForm from "@/forms/sign-up";
 
 type SignUpScreenProps = object;

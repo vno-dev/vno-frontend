@@ -1,36 +1,56 @@
 import { auth } from "@/auth";
-import { Search } from "@/components/common/search";
+import { Search } from "@/components/layouts/app-search/search";
 import { Header } from "@/components/layouts/header";
 import { ProfileDropdown } from "@/components/layouts/profile-dropdown";
 import { AppSidebar } from "@/components/layouts/sidebar/app-sidebar";
 import { ThemeSwitch } from "@/components/layouts/themes/toggle-mode";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { SearchProvider } from "@/providers/search";
+import { LayoutProvider } from "@/providers/layouts";
+import { SearchProvider } from "@/providers/searchs";
 import { headers } from "next/headers";
 import { redirect, RedirectType } from "next/navigation";
 import { PropsWithChildren } from "react";
+import { getCookie } from "cookies-next/server";
+import { cn } from "@/lib/utils";
+import { ConfigDrawer } from "@/components/layouts/config-drawer";
 type NotionAppLayoutProps = PropsWithChildren;
 const NotionAppLayout = async ({ children }: NotionAppLayoutProps) => {
   const session = await auth();
+  const defaultOpen = (await getCookie("sidebar_state")) !== "false";
   if (session)
     return (
       <SearchProvider>
-        <SidebarProvider>
-          <AppSidebar />
-          <SidebarInset>
-            <Header>
-              <Search />
-              <div className="ms-auto flex items-center space-x-4">
-                <ThemeSwitch />
-                {/* <ConfigDrawer /> */}
-                <ProfileDropdown />
+        <LayoutProvider>
+          <SidebarProvider defaultOpen={defaultOpen}>
+            <AppSidebar />
+            <SidebarInset
+              className={cn(
+                // Set content container, so we can use container queries
+                "@container/content",
+
+                // If layout is fixed, set the height
+                // to 100svh to prevent overflow
+                "has-data-[layout=fixed]:h-svh",
+
+                // If layout is fixed and sidebar is inset,
+                // set the height to 100svh - spacing (total margins) to prevent overflow
+                "peer-data-[variant=inset]:has-data-[layout=fixed]:h-[calc(100svh-(var(--spacing)*4))]"
+              )}
+            >
+              <Header>
+                <Search />
+                <div className="ms-auto flex items-center space-x-4">
+                  <ThemeSwitch />
+                  <ConfigDrawer />
+                  <ProfileDropdown />
+                </div>
+              </Header>
+              <div className="flex flex-1 flex-col gap-4 p-3 lg:p-4 pt-0">
+                {children}
               </div>
-            </Header>
-            <div className="flex flex-1 flex-col gap-4 p-3 lg:p-4 pt-0">
-              {children}
-            </div>
-          </SidebarInset>
-        </SidebarProvider>
+            </SidebarInset>
+          </SidebarProvider>
+        </LayoutProvider>
       </SearchProvider>
     );
 

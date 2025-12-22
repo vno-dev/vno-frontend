@@ -69,7 +69,9 @@ export function ProfileForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit((data) => {})} className="space-y-8">
+      <form onSubmit={form.handleSubmit((data) => {
+        console.log("🚀 ~ ProfileForm ~ data:", data);
+      })} className="space-y-8">
         <FormField
           control={form.control}
           name="username"

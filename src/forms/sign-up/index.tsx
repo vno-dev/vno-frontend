@@ -29,7 +29,7 @@ import {
   FieldSet,
 } from "@/components/ui/field";
 import { Button } from "@/components/ui/button";
-import { Google, Github } from "@/icons";
+import { IconGmail, IconGithub } from "@/components/icons";
 import {
   Tooltip,
   TooltipContent,
@@ -311,7 +311,7 @@ export default function SignUpForm({ onSubmit, loading }: SignUpFormProps) {
                           variant="secondary"
                           className="border-border rounded-lg border px-4 py-2.5 text-sm shadow-sm"
                         >
-                          <Google className="size-5" />
+                          <IconGmail className="size-5" />
                           <span className="ml-2">Google</span>
                         </Button>
                         <Button
@@ -320,7 +320,7 @@ export default function SignUpForm({ onSubmit, loading }: SignUpFormProps) {
                           variant="secondary"
                           className="border-border rounded-lg border px-4 py-2.5 text-sm shadow-sm"
                         >
-                          <Github className="size-5" />
+                          <IconGithub className="size-5" />
                           <span className="ml-2">GitHub</span>
                         </Button>
                       </div>

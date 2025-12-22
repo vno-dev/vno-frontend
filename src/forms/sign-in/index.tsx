@@ -30,7 +30,7 @@ import {
   FieldSet,
 } from "@/components/ui/field";
 import { Button } from "@/components/ui/button";
-import { Google, Github } from "@/icons";
+import { IconGmail, IconGithub } from "@/components/icons";
 import {
   Tooltip,
   TooltipContent,
@@ -91,9 +91,7 @@ export default function SignInForm({ onSubmit, loading }: SignInFormProps) {
           <div className="grid min-h-[700px] lg:grid-cols-2">
             {/* --- Left Side --- */}
             <div className="hidden lg:flex relative m-2 lg:m-4 rounded-3xl overflow-hidden p-6 lg:p-12 text-white">
-              <div
-                className="absolute inset-0 z-0"
-              >
+              <div className="absolute inset-0 z-0">
                 <Beams
                   beamWidth={2}
                   beamHeight={15}
@@ -113,8 +111,8 @@ export default function SignInForm({ onSubmit, loading }: SignInFormProps) {
                   Create, Design, and Innovate
                 </h1>
                 <p className="mb-4 lg:mb-12 text-base lg:text-xl opacity-80">
-                  Join thousands of creators who trust VNO Studio to
-                  bring their vision to life.
+                  Join thousands of creators who trust VNO Studio to bring their
+                  vision to life.
                 </p>
 
                 <div className="space-y-6">
@@ -320,7 +318,7 @@ export default function SignInForm({ onSubmit, loading }: SignInFormProps) {
                           variant="secondary"
                           className="border-border rounded-lg border px-4 py-2.5 text-sm shadow-sm"
                         >
-                          <Google className="size-5" />
+                          <IconGmail className="size-5" />
                           <span className="ml-2">Google</span>
                         </Button>
                         <Button
@@ -329,7 +327,7 @@ export default function SignInForm({ onSubmit, loading }: SignInFormProps) {
                           variant="secondary"
                           className="border-border rounded-lg border px-4 py-2.5 text-sm shadow-sm"
                         >
-                          <Github className="size-5" />
+                          <IconGithub className="size-5" />
                           <span className="ml-2">GitHub</span>
                         </Button>
                       </div>

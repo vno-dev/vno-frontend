@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { HeadingSection } from "@/features/components";
 import React, { useState } from "react";
-import { Folder, GripVertical, Share, Trash2 } from "lucide-react";
+import { Folder, GripVertical, MoreHorizontal, Share, Trash2 } from "lucide-react";
 import {
   Sortable,
   SortableItem,
@@ -11,7 +11,6 @@ import {
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { formatDate } from "date-fns";
-import { MoreDotIcon } from "@/icons";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -147,7 +146,7 @@ const HomeScreenMainBoard = () => {
                         size={"icon"}
                         className="text-neutral-400"
                       >
-                        <MoreDotIcon />
+                        <MoreHorizontal className="size-4" />
                         <span className="sr-only">More</span>
                       </Button>
                     </DropdownMenuTrigger>

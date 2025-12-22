@@ -14,7 +14,7 @@ import {
 } from '@/components/ui/form'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { useTheme } from 'next-themes'
-import { useFont } from '@/providers/font'
+import { useFont } from '@/providers/fonts'
 import { fonts } from '@/config/fonts'
 import { ChevronDownIcon } from 'lucide-react'
 

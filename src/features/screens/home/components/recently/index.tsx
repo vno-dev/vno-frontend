@@ -10,8 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { MoreDotIcon } from "@/icons";
-import { Folder, Trash2 } from "lucide-react";
+import { Folder, MoreHorizontal, Trash2 } from "lucide-react";
 
 const sampleNotes = [
   {
@@ -86,7 +85,7 @@ const HomeScreenRecently = () => {
                       size={"icon"}
                       className="text-neutral-400"
                     >
-                      <MoreDotIcon />
+                      <MoreHorizontal className="size-4" />
                       <span className="sr-only">More</span>
                     </Button>
                   </DropdownMenuTrigger>

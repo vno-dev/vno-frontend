@@ -24,6 +24,7 @@ import {
   SidebarHeader,
 } from "@/components/ui/sidebar";
 import { TeamSwitcher } from "./team-switcher";
+import { useLayout } from "@/providers/layouts";
 
 export const sidebarConfigs = {
   user: {
@@ -122,9 +123,9 @@ export const sidebarConfigs = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-
+  const { collapsible, variant } = useLayout();
   return (
-    <Sidebar variant="inset" {...props}>
+    <Sidebar variant={variant} collapsible={collapsible} {...props}>
       <SidebarHeader>
         <TeamSwitcher />
       </SidebarHeader>
