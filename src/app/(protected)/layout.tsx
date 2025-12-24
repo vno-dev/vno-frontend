@@ -48,9 +48,8 @@ const NotionAppLayout = async ({ children }: NotionAppLayoutProps) => {
                   <ProfileDropdown />
                 </div>
               </Header>
-              <div className="flex flex-1 flex-col gap-4 p-3 lg:p-4 pt-0">
-                {children}
-              </div>
+
+              {children}
             </SidebarInset>
           </SidebarProvider>
         </LayoutProvider>
