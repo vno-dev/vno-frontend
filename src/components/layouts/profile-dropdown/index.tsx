@@ -15,6 +15,7 @@ import { Spinner } from "@/components/ui/spinner";
 import { useLogout } from "@/hooks/use-logout";
 import { Link } from "@/lib/navigation";
 import { useAuthStore } from "@/stores/auth";
+import { getPlaceholderName } from "@/utils";
 import { LogOut } from "lucide-react";
 export function ProfileDropdown() {
   const { user } = useAuthStore();
@@ -27,14 +28,18 @@ export function ProfileDropdown() {
           <Button variant="ghost" size="icon" className="relative rounded-full">
             <Avatar className="h-8 w-8">
               <AvatarImage src={user?.avatarUrl} alt={user?.name} />
-              <AvatarFallback>{user?.name?.charAt(0)}</AvatarFallback>
+              <AvatarFallback>
+                {getPlaceholderName(user?.name || user?.email || "VN")}
+              </AvatarFallback>
             </Avatar>
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56" align="end" forceMount>
           <DropdownMenuLabel className="font-normal">
             <div className="flex flex-col gap-1.5">
-              <p className="text-sm leading-none font-medium">{user?.name}</p>
+              <p className="text-sm leading-none font-medium">
+                {user?.name || "VNO's User"}
+              </p>
               <p className="text-xs leading-none text-muted-foreground">
                 {user?.email}
               </p>

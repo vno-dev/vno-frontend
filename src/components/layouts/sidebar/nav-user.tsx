@@ -29,6 +29,7 @@ import { useLogout } from "@/hooks/use-logout";
 import { Spinner } from "@/components/ui/spinner";
 import { useAuthStore } from "@/stores/auth";
 import { Link } from "@/lib/navigation";
+import { getPlaceholderName } from "@/utils";
 
 export function NavUser() {
   const { isMobile } = useSidebar();
@@ -46,10 +47,14 @@ export function NavUser() {
             >
               <Avatar className="h-8 w-8 rounded-lg">
                 <AvatarImage src={user?.avatarUrl} alt={user?.name} />
-                <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                <AvatarFallback className="rounded-lg">
+                  {getPlaceholderName(user?.name || user?.email || "VN")}
+                </AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium">{user?.name}</span>
+                <span className="truncate font-medium">
+                  {user?.name || "VNO's User"}
+                </span>
                 <span className="truncate text-xs">{user?.email}</span>
               </div>
               <ChevronsUpDown className="ml-auto size-4" />

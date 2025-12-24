@@ -5,10 +5,11 @@ import {
   HomeScreenMainBoard,
   HomeScreenRecently,
 } from "./components";
+import { Main } from "@/components/layouts/main";
 
 const HomePageScreen = () => {
   return (
-    <div className="grid grid-cols-12 gap-6">
+    <Main className="grid grid-cols-12 gap-6">
       <div className="col-span-12 lg:col-span-8 space-y-10">
         <HomeScreenMainBoard />
         <HomeScreenRecently />
@@ -17,7 +18,7 @@ const HomePageScreen = () => {
         <HomeScreenChecklist />
         <HomeScreenActivities />
       </div>
-    </div>
+    </Main>
   );
 };
 
