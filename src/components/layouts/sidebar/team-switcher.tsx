@@ -3,7 +3,7 @@
 import * as React from "react";
 import { ChevronsUpDown, Plus } from "lucide-react";
 import { useMemo } from "react";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import {
   DropdownMenu,
@@ -85,9 +85,10 @@ function TeamSwitcherSkeleton() {
 
 export function TeamSwitcher() {
   const { isMobile } = useSidebar();
-  const { user } = useAuthStore();
+  const { user, setUser } = useAuthStore();
   const { update } = useSession();
 
+  const queryClient = useQueryClient();
   const { data, isLoading } = useQuery({
     queryKey: ["organizers"],
     queryFn: () => apiClient.organizers.getAll({}),
@@ -101,11 +102,6 @@ export function TeamSwitcher() {
           orgId,
         },
       }),
-
-    onSuccess: () => {
-      //   window.location.reload();
-    },
-
     onError: (e) => {
       console.log("🚀 ~ TeamSwitcher ~ e:", e);
       toast.error(e.message);
@@ -115,9 +111,10 @@ export function TeamSwitcher() {
   const handleSwitchOrg = async (orgId: string) => {
     const res = await mutateAsync(orgId);
     if (res?.data)
-      update({
+      await update({
         accessToken: res.data.token,
       });
+    setUser((prev) => ({ ...prev, currentOrgId: orgId }));
   };
   const organizers = useMemo(() => data?.data ?? [], [data]);
 
