@@ -16,7 +16,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       name: "password",
       id: "password",
       async authorize(credentials) {
-        console.log("🚀 ~ credentials:", credentials);
         const res =
           credentials.mode === "signup"
             ? await apiClient.auth.signUp({
@@ -46,7 +45,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     newUser: "/register",
   },
   callbacks: {
-    async jwt({ token, user, account }) {
+    async jwt({ token, user, account, trigger, session }) {
+      console.log("🚀 ~ session:", session)
       // Initial sign-in
       if (account && user) {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -54,6 +54,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         const accessToken: string = user.token;
         token.accessToken = accessToken;
       }
+
+      if (trigger === "update" && session?.accessToken) {
+        token.accessToken = session.accessToken;
+      }
+
       return token;
     },
     async session({ session, token }) {

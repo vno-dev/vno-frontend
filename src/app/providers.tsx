@@ -9,20 +9,25 @@ import { DirectionProvider } from "@/providers/directions";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-      <FontProvider>
-        <DirectionProvider>
-          <NextTopLoader color="var(--foreground)" showSpinner={false} />
-          <NextIntlClientProvider>
-            <RqProvider>
-              <AppSessionProvider>
+    <RqProvider>
+      <NextIntlClientProvider>
+        <AppSessionProvider>
+          <ThemeProvider
+            disableTransitionOnChange
+            attribute="class"
+            defaultTheme="light"
+            enableSystem
+          >
+            <FontProvider>
+              <DirectionProvider>
+                <NextTopLoader color="var(--foreground)" showSpinner={false} />
                 <ClientBootstraping />
                 {children}
-              </AppSessionProvider>
-            </RqProvider>
-          </NextIntlClientProvider>
-        </DirectionProvider>
-      </FontProvider>
-    </ThemeProvider>
+              </DirectionProvider>
+            </FontProvider>
+          </ThemeProvider>
+        </AppSessionProvider>
+      </NextIntlClientProvider>
+    </RqProvider>
   );
 }

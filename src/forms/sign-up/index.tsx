@@ -89,7 +89,7 @@ export default function SignUpForm({ onSubmit, loading }: SignUpFormProps) {
   return (
     <div className="relative flex min-h-screen w-full items-center justify-center lg:p-4">
       <div className="z-10 w-full max-w-6xl">
-        <div className="bg-background overflow-hidden lg:rounded-[40px] lg:shadow-2xl">
+        <div className="bg-card overflow-hidden lg:rounded-[40px] lg:shadow-2xl">
           <div className="grid min-h-[700px] lg:grid-cols-2">
             {/* --- Left Side --- */}
             <div className="hidden lg:flex relative m-2 lg:m-4 rounded-3xl overflow-hidden p-6 lg:p-12 text-white">
@@ -163,7 +163,7 @@ export default function SignUpForm({ onSubmit, loading }: SignUpFormProps) {
             </div>
 
             {/* --- Right Side --- */}
-            <div className="flex flex-col justify-center p-12">
+            <div className="flex flex-col justify-center p-4 md:p-12">
               <div className="mx-auto w-full max-w-md">
                 <div className="mb-8 text-center">
                   <h2 className="text-3xl uppercase">Sign Up</h2>

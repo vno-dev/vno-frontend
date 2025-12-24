@@ -1,4 +1,4 @@
-import { BaseResponse } from "@/apis/base";
+import { BaseRequest, BaseResponse } from "@/apis/base";
 import { VnoCrudApiClient } from "./crud";
 import {
   ISignInRequest,
@@ -8,7 +8,6 @@ import {
   IUpdateProfileRequest,
 } from "../interfaces";
 import { IUser } from "../interfaces/user";
-
 export class AuthApiClient extends VnoCrudApiClient {
   constructor() {
     super({ resource: "auth" });
@@ -34,5 +33,13 @@ export class AuthApiClient extends VnoCrudApiClient {
     request: IUpdateProfileRequest
   ) => Promise<BaseResponse<IUser>> = () => {
     return this.client.put("/me");
+  };
+
+  switchOrganizer: (request: BaseRequest) => Promise<
+    BaseResponse<{
+      token: string;
+    }>
+  > = (request) => {
+    return this.client.post("/switch-org?orgId=" + request?.params?.orgId);
   };
 }

@@ -3,7 +3,7 @@
 import * as React from "react";
 import { ChevronsUpDown, Plus } from "lucide-react";
 import { useMemo } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 import {
   DropdownMenu,
@@ -24,6 +24,9 @@ import { cn } from "@/lib/utils";
 import { apiClient } from "@/apis/vno";
 import { useAuthStore } from "@/stores/auth";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Spinner } from "@/components/ui/spinner";
+import { useSession } from "next-auth/react";
+import { toast } from "sonner";
 
 /* --------------------------------------------------
  * Helpers
@@ -82,7 +85,8 @@ function TeamSwitcherSkeleton() {
 
 export function TeamSwitcher() {
   const { isMobile } = useSidebar();
-  const { user} = useAuthStore();
+  const { user } = useAuthStore();
+  const { update } = useSession();
 
   const { data, isLoading } = useQuery({
     queryKey: ["organizers"],
@@ -90,16 +94,36 @@ export function TeamSwitcher() {
     staleTime: 60_000,
   });
 
-  const organizers = useMemo(
-    () => data?.data ?? [],
-    [data]
-  );
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: (orgId: string) =>
+      apiClient.auth.switchOrganizer({
+        params: {
+          orgId,
+        },
+      }),
+
+    onSuccess: () => {
+      //   window.location.reload();
+    },
+
+    onError: (e) => {
+      console.log("🚀 ~ TeamSwitcher ~ e:", e);
+      toast.error(e.message);
+    },
+  });
+
+  const handleSwitchOrg = async (orgId: string) => {
+    const res = await mutateAsync(orgId);
+    if (res?.data)
+      update({
+        accessToken: res.data.token,
+      });
+  };
+  const organizers = useMemo(() => data?.data ?? [], [data]);
 
   const currentOrganizer = useMemo(() => {
     if (!user?.currentOrgId) return null;
-    return organizers.find(
-      (org) => org.id === user.currentOrgId
-    );
+    return organizers.find((org) => org.id === user.currentOrgId);
   }, [organizers, user]);
 
   /**
@@ -127,9 +151,7 @@ export function TeamSwitcher() {
                     : "bg-muted"
                 )}
               >
-                {currentOrganizer
-                  ? getOrgInitials(currentOrganizer.name)
-                  : "?"}
+                {currentOrganizer ? getOrgInitials(currentOrganizer.name) : "?"}
               </div>
 
               <div className="grid flex-1 text-left text-sm leading-tight">
@@ -157,8 +179,7 @@ export function TeamSwitcher() {
             </DropdownMenuLabel>
 
             {organizers.map((team) => {
-              const isCurrent =
-                team.id === user.currentOrgId;
+              const isCurrent = team.id === user.currentOrgId;
 
               return (
                 <DropdownMenuItem
@@ -166,12 +187,11 @@ export function TeamSwitcher() {
                   disabled={isCurrent}
                   className={cn(
                     "gap-2 p-2",
-                    isCurrent &&
-                      "cursor-default opacity-60"
+                    isCurrent && "cursor-default opacity-60"
                   )}
-                  onClick={() => {
+                  onClick={async () => {
                     if (isCurrent) return;
-                    // setCurrentOrg(team.id);
+                    await handleSwitchOrg(team.id);
                   }}
                 >
                   <div
@@ -183,14 +203,11 @@ export function TeamSwitcher() {
                     {getOrgInitials(team.name)}
                   </div>
 
-                  <span className="flex-1 truncate">
-                    {team.name}
-                  </span>
+                  <span className="flex-1 truncate">{team.name}</span>
 
+                  {isPending && <Spinner />}
                   {isCurrent && (
-                    <DropdownMenuShortcut>
-                      Current
-                    </DropdownMenuShortcut>
+                    <DropdownMenuShortcut>Current</DropdownMenuShortcut>
                   )}
                 </DropdownMenuItem>
               );

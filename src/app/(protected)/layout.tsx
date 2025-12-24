@@ -40,7 +40,7 @@ const NotionAppLayout = async ({ children }: NotionAppLayoutProps) => {
                 "peer-data-[variant=inset]:has-data-[layout=fixed]:h-[calc(100svh-(var(--spacing)*4))]"
               )}
             >
-              <Header>
+              <Header fixed>
                 <Search />
                 <div className="ms-auto flex items-center space-x-4">
                   <ThemeSwitch />
