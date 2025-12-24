@@ -21,17 +21,22 @@ export const useAuthStore = create<AuthState>((set) => ({
 
   setUser: (updater) =>
     set((state) => {
-      if (!state.user) return { user: null }; // an toàn khi chưa login
+      if (!state.user && typeof updater !== "function") {
+        return { user: updater as IUser };
+      }
 
-      const patch =
-        typeof updater === "function" ? updater(state.user) : updater;
+      const patch: Partial<IUser> =
+        typeof updater === "function"
+          ? updater(state.user ?? ({} as IUser))
+          : updater;
 
       return {
-        user: { ...state.user, ...patch }, // merge partial
+        user: state.user
+          ? { ...state.user, ...patch }
+          : ({ ...patch } as IUser),
       };
     }),
 
   setLoading: (v) => set({ loading: v }),
-
   logout: () => set({ user: null }),
 }));

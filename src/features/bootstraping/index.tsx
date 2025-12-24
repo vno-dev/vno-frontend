@@ -22,7 +22,8 @@ const ClientBootstraping = () => {
   const { setUser } = useAuthStore();
 
   useEffect(() => {
-    setUser(user?.data as never);
+    if (!user?.data) return;
+    setUser(user?.data);
   }, [setUser, user]);
 
   useEffect(() => {

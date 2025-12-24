@@ -3,7 +3,8 @@
 import * as React from "react";
 import { ChevronsUpDown, Plus } from "lucide-react";
 import { useMemo } from "react";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 import {
   DropdownMenu,
@@ -20,13 +21,12 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Spinner } from "@/components/ui/spinner";
 import { cn } from "@/lib/utils";
 import { apiClient } from "@/apis/vno";
 import { useAuthStore } from "@/stores/auth";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Spinner } from "@/components/ui/spinner";
 import { useSession } from "next-auth/react";
-import { toast } from "sonner";
 
 /* --------------------------------------------------
  * Helpers
@@ -80,6 +80,16 @@ function TeamSwitcherSkeleton() {
 }
 
 /* --------------------------------------------------
+ * Service Layer
+ * -------------------------------------------------- */
+
+async function switchOrganization(orgId: string) {
+  const res = await apiClient.auth.switchOrganizer({ params: { orgId } });
+  if (!res?.data?.token) throw new Error("Failed to switch organization");
+  return res.data.token;
+}
+
+/* --------------------------------------------------
  * Component
  * -------------------------------------------------- */
 
@@ -87,35 +97,12 @@ export function TeamSwitcher() {
   const { isMobile } = useSidebar();
   const { user, setUser } = useAuthStore();
   const { update } = useSession();
-
-  const queryClient = useQueryClient();
   const { data, isLoading } = useQuery({
     queryKey: ["organizers"],
     queryFn: () => apiClient.organizers.getAll({}),
     staleTime: 60_000,
   });
 
-  const { mutateAsync, isPending } = useMutation({
-    mutationFn: (orgId: string) =>
-      apiClient.auth.switchOrganizer({
-        params: {
-          orgId,
-        },
-      }),
-    onError: (e) => {
-      console.log("🚀 ~ TeamSwitcher ~ e:", e);
-      toast.error(e.message);
-    },
-  });
-
-  const handleSwitchOrg = async (orgId: string) => {
-    const res = await mutateAsync(orgId);
-    if (res?.data)
-      await update({
-        accessToken: res.data.token,
-      });
-    setUser((prev) => ({ ...prev, currentOrgId: orgId }));
-  };
   const organizers = useMemo(() => data?.data ?? [], [data]);
 
   const currentOrganizer = useMemo(() => {
@@ -123,11 +110,35 @@ export function TeamSwitcher() {
     return organizers.find((org) => org.id === user.currentOrgId);
   }, [organizers, user]);
 
-  /**
-   * ❗ Quan trọng:
-   * - Không có user → không render gì
-   * - Có user nhưng loading → render skeleton
-   */
+  const mutation = useMutation({
+    mutationFn: switchOrganization,
+    onMutate: async (orgId: string) => {
+      const previousOrgId = user?.currentOrgId;
+      setUser(() => ({ currentOrgId: orgId ?? undefined }));
+      return { previousOrgId };
+    },
+    onError: (_err, _orgId, context) => {
+      if (context?.previousOrgId !== undefined) {
+        setUser(() => ({ currentOrgId: context.previousOrgId }));
+      }
+      toast.error("Failed to switch team");
+    },
+    onSuccess: async (token) => {
+      try {
+        await update({ accessToken: token });
+        window?.location?.reload();
+      } catch (err) {
+        toast.error("Failed to update session");
+        console.error(err);
+      }
+    },
+  });
+
+  const handleSwitchOrg = async (orgId: string) => {
+    if (orgId === user?.currentOrgId) return;
+    await mutation.mutateAsync(orgId);
+  };
+
   if (isLoading || !user) return <TeamSwitcherSkeleton />;
 
   return (
@@ -181,15 +192,12 @@ export function TeamSwitcher() {
               return (
                 <DropdownMenuItem
                   key={team.id}
-                  disabled={isCurrent}
+                  disabled={isCurrent || mutation.isPending}
                   className={cn(
                     "gap-2 p-2",
                     isCurrent && "cursor-default opacity-60"
                   )}
-                  onClick={async () => {
-                    if (isCurrent) return;
-                    await handleSwitchOrg(team.id);
-                  }}
+                  onClick={async () => handleSwitchOrg(team.id)}
                 >
                   <div
                     className={cn(
@@ -202,10 +210,10 @@ export function TeamSwitcher() {
 
                   <span className="flex-1 truncate">{team.name}</span>
 
-                  {isPending && <Spinner />}
                   {isCurrent && (
                     <DropdownMenuShortcut>Current</DropdownMenuShortcut>
                   )}
+                  {mutation.isPending && <Spinner />}
                 </DropdownMenuItem>
               );
             })}
