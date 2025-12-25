@@ -1,7 +1,6 @@
 import { auth } from "@/auth";
 import { Search } from "@/components/layouts/app-search/search";
 import { Header } from "@/components/layouts/header";
-import { ProfileDropdown } from "@/components/layouts/profile-dropdown";
 import { AppSidebar } from "@/components/layouts/sidebar/app-sidebar";
 import { ThemeSwitch } from "@/components/layouts/themes/toggle-mode";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
@@ -13,6 +12,8 @@ import { PropsWithChildren } from "react";
 import { cn } from "@/lib/utils";
 import { cookies } from "next/headers";
 import { ConfigDrawer } from "@/components/layouts/config-drawer";
+import Notifications from "@/components/layouts/notifications";
+import Messages from "@/components/layouts/messages";
 
 type NotionAppLayoutProps = PropsWithChildren;
 const NotionAppLayout = async ({ children }: NotionAppLayoutProps) => {
@@ -42,10 +43,12 @@ const NotionAppLayout = async ({ children }: NotionAppLayoutProps) => {
             >
               <Header fixed>
                 <Search />
-                <div className="ms-auto flex items-center space-x-4">
+                <div className="hidden sm:flex items-center gap-2">
+                  <Notifications />
+                  <Messages />
                   <ThemeSwitch />
                   <ConfigDrawer />
-                  <ProfileDropdown />
+                  {/* <ProfileDropdown /> */}
                 </div>
               </Header>
 

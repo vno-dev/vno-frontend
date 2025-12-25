@@ -47,7 +47,7 @@ export function NavProjects() {
     >
       {(workspaces) => (
         <SidebarGroup className="group-data-[collapsible=icon]:hidden">
-          <SidebarGroupLabel>Projects</SidebarGroupLabel>
+          <SidebarGroupLabel>Workspaces</SidebarGroupLabel>
           <SidebarMenu>
             {workspaces.map((item) => (
               <SidebarMenuItem key={item.id}>

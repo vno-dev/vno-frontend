@@ -1,7 +1,5 @@
 "use client";
 
-import { ChevronRight } from "lucide-react";
-
 import {
   Collapsible,
   CollapsibleContent,
@@ -9,7 +7,6 @@ import {
 } from "@/components/ui/collapsible";
 import {
   SidebarGroup,
-  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
@@ -17,25 +14,70 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
-import { NavItem } from "./types";
+import {
+  Bot,
+  Calendar,
+  ChevronRight,
+  Circle,
+  FileText,
+  LayoutGrid,
+  Star,
+} from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export function NavMain({ items }: { items: NavItem[] }) {
+export function NavMain() {
   const pathname = usePathname();
+  const items = [
+    {
+      title: "Dashboard",
+      url: "/",
+      icon: LayoutGrid,
+    },
+    {
+      title: "Assigned to me",
+      url: "#",
+      icon: Circle,
+    },
+    {
+      title: "Tasks",
+      url: "#",
+      icon: Star,
+    },
+    {
+      title: "Shedule",
+      url: "#",
+      icon: Calendar,
+    },
+    {
+      title: "Dafts",
+      url: "#",
+      icon: FileText,
+    },
+  ];
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>Platform</SidebarGroupLabel>
       <SidebarMenu>
+        <SidebarMenuItem>
+          <SidebarMenuButton>
+            <Bot className="text-[#6e3ff3]" />
+            <span className="bg-clip-text text-transparent bg-linear-to-r from-[#6e3ff3] to-[#df3674]">
+              AI Assistant
+            </span>
+          </SidebarMenuButton>
+        </SidebarMenuItem>
         {items.map((item) => {
-          const hasChilds = item.items && item.items.length > 0;
+          const hasChilds =
+            "items" in item &&
+            Array.isArray(item?.items) &&
+            item?.items.length > 0;
           const isActive = pathname === item.url;
           if (hasChilds)
             return (
               <Collapsible
                 key={item.title}
                 asChild
-                defaultOpen={item.isActive}
+                defaultOpen={isActive}
                 className="group/collapsible"
               >
                 <SidebarMenuItem>
@@ -48,7 +90,7 @@ export function NavMain({ items }: { items: NavItem[] }) {
                   </CollapsibleTrigger>
                   <CollapsibleContent>
                     <SidebarMenuSub>
-                      {item.items?.map((subItem) => {
+                      {((item?.items as Array<any>) || [])?.map((subItem) => {
                         const isActive = pathname === subItem.url;
                         return (
                           <SidebarMenuSubItem key={subItem.title}>
@@ -67,7 +109,11 @@ export function NavMain({ items }: { items: NavItem[] }) {
             );
           return (
             <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton asChild isActive={isActive}>
+              <SidebarMenuButton
+                tooltip={item.title}
+                asChild
+                isActive={isActive}
+              >
                 <Link href={item.url}>
                   <item.icon />
                   <span>{item.title}</span>

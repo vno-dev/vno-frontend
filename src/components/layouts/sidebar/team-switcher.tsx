@@ -35,7 +35,7 @@ import { useSession } from "next-auth/react";
 const ORG_COLORS = [
   "bg-blue-500",
   "bg-green-500",
-  "bg-purple-500",
+  "bg-rose-500",
   "bg-orange-500",
   "bg-pink-500",
   "bg-indigo-500",

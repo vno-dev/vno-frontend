@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Montserrat } from "next/font/google";
+import { Geist, Geist_Mono, Inter, Montserrat } from "next/font/google";
 import "./globals.css";
 import "@/styles/novel/prosemirror.css";
 import "katex/dist/katex.min.css";
@@ -8,6 +8,16 @@ import { DEFAULT_METADATA } from "@/config/metadata";
 import { cn } from "@/lib/utils";
 import { DEVTOOL } from "@/config/env";
 import Providers from "./providers";
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
 
 const montserrat = Montserrat({
   subsets: ["vietnamese"],
@@ -49,7 +59,15 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} suppressHydrationWarning className="select-none">
-      <body className={cn(montserrat.variable, inter.variable, "antialiased")}>
+      <body
+        className={cn(
+          montserrat.variable,
+          inter.variable,
+          geistSans.variable,
+          geistMono.variable,
+          "antialiased"
+        )}
+      >
         <Providers>{children}</Providers>
 
         {DEVTOOL.ENABLED && (
