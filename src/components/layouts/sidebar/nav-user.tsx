@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  ChevronsUpDown,
-  CoinsIcon,
-  LogOut,
-  Settings,
-  UserIcon,
-} from "lucide-react";
+import { ChevronsUpDown, LogOut, Settings, UserIcon } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -25,6 +19,7 @@ import { useLogout } from "@/hooks/use-logout";
 import { Spinner } from "@/components/ui/spinner";
 import { useAuthStore } from "@/stores/auth";
 import { getPlaceholderName } from "@/utils";
+import { Link } from "@/lib/navigation";
 
 export function NavUser() {
   const { user } = useAuthStore();
@@ -59,18 +54,25 @@ export function NavUser() {
             </SidebarMenuButton>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-[200px]" align="end">
-            <DropdownMenuItem>
-              <UserIcon className="size-4 mr-2" />
-              Profile
+            <DropdownMenuItem asChild>
+              <Link href="/settings">
+                <UserIcon className="size-4 mr-2" />
+                Profile
+              </Link>
             </DropdownMenuItem>
-            <DropdownMenuItem>
-              <CoinsIcon className="size-4 mr-2" />
-              Billing
+             <DropdownMenuItem asChild>
+              <Link href="/settings/billing">
+                <UserIcon className="size-4 mr-2" />
+                Billing
+              </Link>
             </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Settings className="size-4 mr-2" />
-              Settings
+            <DropdownMenuItem asChild>
+              <Link href="/settings">
+                <Settings className="size-4 mr-2" />
+                Settings
+              </Link>
             </DropdownMenuItem>
+
             <DropdownMenuSeparator />
             <DropdownMenuItem
               className="text-destructive"

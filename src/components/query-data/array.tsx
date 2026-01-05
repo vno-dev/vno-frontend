@@ -16,7 +16,11 @@ const QueryArrayWrapper = <T,>({
   data,
   emptyMessage,
   children,
-  fallbackLoading = <Spinner />,
+  fallbackLoading = (
+    <div className="w-full h-[200px] flex items-center justify-center">
+      <Spinner className="size-10" />
+    </div>
+  ),
   fallBackEmpty = <EmptyRecord description={emptyMessage} />,
 }: QueryArrayWrapperProps<T>) => {
   if (isLoading) return fallbackLoading;

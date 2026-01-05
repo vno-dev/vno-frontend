@@ -1,7 +1,14 @@
 import { SidebarNav } from "@/components/containers";
 import { Main } from "@/components/layouts/main";
 import { Separator } from "@/components/ui/separator";
-import { Bell, Monitor, Palette, UserCog, Wrench } from "lucide-react";
+import {
+  Bell,
+  Monitor,
+  Palette,
+  ReceiptText,
+  UserCog,
+  Wrench,
+} from "lucide-react";
 import { PropsWithChildren } from "react";
 
 const sidebarNavItems = [
@@ -14,6 +21,11 @@ const sidebarNavItems = [
     title: "Account",
     href: "/settings/account",
     icon: <Wrench size={18} />,
+  },
+  {
+    title: "Billing",
+    href: "/settings/billing",
+    icon: <ReceiptText size={18} />,
   },
   {
     title: "Appearance",

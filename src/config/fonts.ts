@@ -17,8 +17,8 @@
  *   }
  */
 export const fonts = [
-  "inter",
   "montserrat",
+  "inter",
   "geist-sans",
   "geist-mono",
   "system",

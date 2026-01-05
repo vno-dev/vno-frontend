@@ -1,7 +1,8 @@
+import NotesScreen from "@/features/screens/notes";
 import React from "react";
 
 const NotesPage = () => {
-  return <div>NotesPage</div>;
+  return <NotesScreen />;
 };
 
 export default NotesPage;

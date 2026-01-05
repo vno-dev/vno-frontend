@@ -49,7 +49,6 @@ interface Ripple {
 }
 
 type PolymorphicComponentProp<C extends React.ElementType> = {
-  as?: C;
   asChild?: boolean;
 } & React.ComponentPropsWithoutRef<C> &
   VariantProps<typeof buttonVariants> & {
@@ -65,7 +64,6 @@ function Button<C extends React.ElementType = "button">({
   variant,
   size,
   asChild = false,
-  as,
   ripple = true,
   isLoading = false,
   ...props
@@ -96,7 +94,7 @@ function Button<C extends React.ElementType = "button">({
     }, 800);
   };
 
-  const Component = asChild ? Slot : as || "button";
+  const Component = asChild ? Slot : "button";
 
   return (
     <Component

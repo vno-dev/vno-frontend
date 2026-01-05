@@ -14,7 +14,11 @@ const QueryObjectWrapper = <T extends object>({
   isLoading,
   data,
   emptyMessage = "Không có dữ liệu.",
-  fallBackLoading = <Spinner />,
+  fallBackLoading = (
+    <div className="flex w-full items-center justify-center">
+      <Spinner className="size-6" />
+    </div>
+  ),
   fallBackEmpty = <EmptyRecord description={emptyMessage} />,
   children,
 }: QueryObjectWrapperProps<T>) => {

@@ -52,9 +52,11 @@
   --animate-spotlight: spotlight 2s ease 0.75s 1 forwards;
   --color-destructive-foreground: oklch(1 0 0);
   --color-color-destructive-foreground: var(----color-destructive-foreground);
+  --animate-rippling: rippling var(--duration) ease-out;
 }
 
 :root {
+  --duration: 0.7s;
   --radius: 0.625rem;
   --background: oklch(100% 0.00011 271.152);
   --foreground: oklch(0.145 0 0);
@@ -143,7 +145,7 @@
   }
 
   html {
-    @apply overflow-x-hidden;
+    @apply overflow-x-hidden scroll-smooth;
   }
   body {
     @apply min-h-svh w-full bg-background text-foreground has-[div[data-variant='inset']]:bg-sidebar;
@@ -181,6 +183,16 @@
   100% {
     opacity: 1;
     transform: translate(-50%, -40%) scale(1);
+  }
+}
+
+@keyframes rippling {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
   }
 }
 

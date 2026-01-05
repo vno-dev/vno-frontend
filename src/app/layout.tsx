@@ -58,7 +58,12 @@ export default async function RootLayout({
   const locale = await getLocale();
 
   return (
-    <html lang={locale} suppressHydrationWarning className="select-none">
+    <html
+      translate="no"
+      lang={locale}
+      suppressHydrationWarning
+      className="select-none"
+    >
       <body
         className={cn(
           montserrat.variable,

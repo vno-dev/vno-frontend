@@ -44,7 +44,7 @@ export function Header({ className, fixed, children, ...props }: HeaderProps) {
       >
         <SidebarTrigger variant="outline" className="max-md:scale-125" />
         <Greeting />
-        <div className="flex-1" />
+        <div className="hidden md:flex flex-1" />
         {children}
       </div>
     </header>

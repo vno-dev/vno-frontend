@@ -21,6 +21,7 @@ import {
   Circle,
   FileText,
   LayoutGrid,
+  NotebookPen,
   Star,
 } from "lucide-react";
 import Link from "next/link";
@@ -33,6 +34,11 @@ export function NavMain() {
       title: "Dashboard",
       url: "/",
       icon: LayoutGrid,
+    },
+    {
+      title: "Notes",
+      url: "/notes",
+      icon: NotebookPen,
     },
     {
       title: "Assigned to me",

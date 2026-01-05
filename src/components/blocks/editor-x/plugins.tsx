@@ -269,10 +269,10 @@ export function Plugins({}) {
       </div>
       <ActionsPlugin>
         <div className="clear-both flex items-center justify-between gap-2 overflow-auto border-t p-1">
-          <div className="flex flex-1 justify-start">
+          {/* <div className="flex flex-1 justify-start">
             <MaxLengthPlugin maxLength={maxLength} />
             <CharacterLimitPlugin maxLength={maxLength} charset="UTF-16" />
-          </div>
+          </div> */}
           <div>
             <CounterCharacterPlugin charset="UTF-16" />
           </div>

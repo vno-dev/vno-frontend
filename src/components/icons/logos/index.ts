@@ -1,0 +1,1 @@
+export { default as VNOLogo } from './vno-logo';

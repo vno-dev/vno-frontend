@@ -1,5 +1,5 @@
 import { VnoCrudApiClient } from "./crud";
-import { IOrganizer } from "../interfaces";
+import { IOrganizer, IPlanResponse } from "../interfaces";
 import { BaseResponse } from "@/apis/base";
 export class OrganizerApiClient extends VnoCrudApiClient<IOrganizer> {
   constructor() {
@@ -7,6 +7,10 @@ export class OrganizerApiClient extends VnoCrudApiClient<IOrganizer> {
   }
 
   getCurrent(): Promise<BaseResponse<IOrganizer>> {
-    return this.client.get("");
+    return this.client.get("/current");
   }
+
+  getCurrentPlan: () => Promise<BaseResponse<IPlanResponse>> = () => {
+    return this.client.get("/current/plan-info");
+  };
 }

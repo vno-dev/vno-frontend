@@ -1,24 +1,31 @@
-import * as React from "react";
+import React from "react";
 import { cn } from "@/lib/utils";
 
-export interface TypographyProps extends React.HTMLAttributes<HTMLElement> {
-  variant?:
-    | "h1"
-    | "h2"
-    | "h3"
-    | "h4"
-    | "p"
-    | "blockquote"
-    | "list"
-    | "inline-code"
-    | "lead"
-    | "large"
-    | "small"
-    | "muted";
-  as?: React.ElementType;
-}
+type Variant =
+  | "h1"
+  | "h2"
+  | "h3"
+  | "h4"
+  | "p"
+  | "blockquote"
+  | "list"
+  | "inline-code"
+  | "lead"
+  | "large"
+  | "small"
+  | "muted";
+  
+type TypographyOwnProps<C extends React.ElementType> = {
+  as?: C;
+  variant?: Variant;
+  className?: string;
+  children?: React.ReactNode;
+};
 
-const variantStyles = {
+type TypographyProps<C extends React.ElementType> = TypographyOwnProps<C> &
+  Omit<React.ComponentPropsWithoutRef<C>, keyof TypographyOwnProps<C>>;
+
+const variantClasses: Record<Variant, string> = {
   h1: "text-4xl font-extrabold tracking-tight lg:text-5xl",
   h2: "text-3xl font-semibold tracking-tight first:mt-0",
   h3: "text-2xl font-semibold tracking-tight",
@@ -34,37 +41,16 @@ const variantStyles = {
   muted: "text-sm text-muted-foreground",
 };
 
-const defaultElements = {
-  h1: "h1",
-  h2: "h2",
-  h3: "h3",
-  h4: "h4",
-  p: "p",
-  blockquote: "blockquote",
-  list: "ul",
-  "inline-code": "code",
-  lead: "p",
-  large: "div",
-  small: "small",
-  muted: "p",
-} as const;
+export function Typography<C extends React.ElementType = "p">(
+  props: TypographyProps<C>
+) {
+  const { as, variant = "p", className, children, ...rest } = props;
 
-const Typography = React.forwardRef<HTMLElement, TypographyProps>(
-  ({ className, variant = "p", as, children, ...props }, ref) => {
-    const Component = as || defaultElements[variant];
+  const Component = as ?? ("p" as any);
 
-    return (
-      <Component
-        ref={ref}
-        className={cn(variantStyles[variant], className)}
-        {...props}
-      >
-        {children}
-      </Component>
-    );
-  }
-);
-
-Typography.displayName = "Typography";
-
-export { Typography };
+  return (
+    <Component className={cn(variantClasses[variant], className)} {...rest}>
+      {children}
+    </Component>
+  );
+}

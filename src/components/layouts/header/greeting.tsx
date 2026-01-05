@@ -54,7 +54,7 @@ export function Greeting({ name = "VNO's User" }: GreetingProps) {
   const Icon = greeting.icon;
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="hidden lg:flex items-center gap-2">
       <div
         className={cn(
           "size-8 rounded-full flex items-center justify-center text-white",

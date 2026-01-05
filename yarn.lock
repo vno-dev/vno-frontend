@@ -1862,7 +1862,7 @@
 
 "@number-flow/react@^0.5.10":
   version "0.5.10"
-  resolved "https://registry.npmjs.org/@number-flow/react/-/react-0.5.10.tgz"
+  resolved "https://registry.yarnpkg.com/@number-flow/react/-/react-0.5.10.tgz#7468384c0aaf03148986e4948d534ac832fe42e9"
   integrity sha512-a8Wh5eNITn7Km4xbddAH7QH8eNmnduR6k34ER1hkHSGO4H2yU1DDnuAWLQM99vciGInFODemSc0tdxrXkJEpbA==
   dependencies:
     esm-env "^1.1.4"
@@ -2680,7 +2680,7 @@
   resolved "https://registry.npmjs.org/@schummar/icu-type-parser/-/icu-type-parser-1.21.5.tgz"
   integrity sha512-bXHSaW5jRTmke9Vd0h5P7BtWZG9Znqb8gSDxZnxaGSJnGwPLDPfS+3g0BKzeWqzgZPsIVZkM7m2tbo18cm5HBw==
 
-"@standard-schema/spec@^1.0.0":
+"@standard-schema/spec@1.0.0", "@standard-schema/spec@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@standard-schema/spec/-/spec-1.0.0.tgz#f193b73dc316c4170f2e82a881da0f550d551b9c"
   integrity sha512-m2bOd0f2RT9k8QJx1JN85cZYyH1RqFBdlwtkSlf4tBDYLCiiZnv1fIIwacK6cqwXavOydf0NPToMQgpKq+dVlA==
@@ -6467,6 +6467,13 @@ number-flow@0.5.8:
   integrity sha512-FPr1DumWyGi5Nucoug14bC6xEz70A1TnhgSHhKyfqjgji2SOTz+iLJxKtv37N5JyJbteGYCm6NQ9p1O4KZ7iiA==
   dependencies:
     esm-env "^1.1.4"
+
+nuqs@^2.8.6:
+  version "2.8.6"
+  resolved "https://registry.yarnpkg.com/nuqs/-/nuqs-2.8.6.tgz#980bf0fe4d6e65eff7fd6e3f95e5c2d30ec5652e"
+  integrity sha512-aRxeX68b4ULmhio8AADL2be1FWDy0EPqaByPvIYWrA7Pm07UjlrICp/VPlSnXJNAG0+3MQwv3OporO2sOXMVGA==
+  dependencies:
+    "@standard-schema/spec" "1.0.0"
 
 oauth4webapi@^3.3.0:
   version "3.8.2"
