@@ -1,6 +1,7 @@
 import { DEVTOOL } from "@/config/env";
 import { DEFAULT_METADATA } from "@/config/metadata";
 import { cn } from "@/lib/utils";
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Geist, Geist_Mono, Inter, Montserrat } from "next/font/google";
@@ -71,6 +72,8 @@ export default async function RootLayout({
                 )}
             >
                 <Providers>{children}</Providers>
+
+                <Analytics />
 
                 {DEVTOOL.ENABLED && (
                     <div
