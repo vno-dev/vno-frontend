@@ -1,10 +1,5 @@
-"use client";
-
-import TailwindAdvancedEditor from "@/features/notes/editor/advanced-editor";
-
-
 const NotesCreateScreen = () => {
-  return <TailwindAdvancedEditor />;
+    return <>Create note</>;
 };
 
 export default NotesCreateScreen;

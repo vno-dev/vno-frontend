@@ -39,7 +39,7 @@ export function Editor({
     withToolbar?: boolean
 }) {
     return (
-        <div className={cn("bg-background overflow-hidden rounded-lg border shadow", className)}>
+        <div className={cn("bg-background overflow-hidden rounded-lg border shadow flex-1", className)}>
             <LexicalComposer
                 initialConfig={{
                     ...editorConfig,

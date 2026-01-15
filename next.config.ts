@@ -3,32 +3,24 @@ import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
 const nextConfig: NextConfig = {
-  output: "standalone",
-  async rewrites() {
-    return [
-      {
-        source: "/vno-api/v1/:path*",
-        destination: `${VNO_API_URL}/api/v1/:path*`,
-      },
-    ];
-  },
-  experimental: {
-    viewTransition: true,
-    turbo: {
-      rules: {
-        "*.svg": {
-          loaders: ["@svgr/webpack"],
-          as: "*.ts",
-        },
-      },
+    output: "standalone",
+    async rewrites() {
+        return [
+            {
+                source: "/vno-api/v1/:path*",
+                destination: `${VNO_API_URL}/api/v1/:path*`,
+            },
+        ];
     },
-  },
-  typescript: {
-    ignoreBuildErrors: true,
-  },
-  images: {
-    domains: ["plus.unsplash.com", "images.unsplash.com"],
-  },
+    experimental: {
+        viewTransition: true,
+    },
+    typescript: {
+        ignoreBuildErrors: true,
+    },
+    images: {
+        domains: ["plus.unsplash.com", "images.unsplash.com"],
+    },
 };
 
 const withNextIntl = createNextIntlPlugin();
