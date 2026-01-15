@@ -1,5 +1,6 @@
-import { default as HotAirBalloon } from "./hot-air-balloon.svg";
-import { default as Cat } from "./cat.svg";
-import { default as Skating } from "./skating.svg";
+import { default as Cat } from "./cat";
+import { default as HotAirBalloon } from "./hot-air-balloon";
+import { default as Skating } from "./skating";
 
-export { HotAirBalloon, Cat, Skating };
+export { Cat, HotAirBalloon, Skating };
+

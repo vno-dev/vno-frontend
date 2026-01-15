@@ -1,5 +1,4 @@
 'use client'
-import { useState } from "react"
 import {
     CHECK_LIST,
     ELEMENT_TRANSFORMERS,
@@ -20,16 +19,15 @@ import { MarkdownShortcutPlugin } from "@lexical/react/LexicalMarkdownShortcutPl
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin"
 import { TabIndentationPlugin } from "@lexical/react/LexicalTabIndentationPlugin"
 import { TablePlugin } from "@lexical/react/LexicalTablePlugin"
+import { useState } from "react"
 
 import { ContentEditable } from "@/components/editor/editor-ui/content-editable"
 import { ActionsPlugin } from "@/components/editor/plugins/actions/actions-plugin"
-import { CharacterLimitPlugin } from "@/components/editor/plugins/actions/character-limit-plugin"
 import { ClearEditorActionPlugin } from "@/components/editor/plugins/actions/clear-editor-plugin"
 import { CounterCharacterPlugin } from "@/components/editor/plugins/actions/counter-character-plugin"
 import { EditModeTogglePlugin } from "@/components/editor/plugins/actions/edit-mode-toggle-plugin"
 import { ImportExportPlugin } from "@/components/editor/plugins/actions/import-export-plugin"
 import { MarkdownTogglePlugin } from "@/components/editor/plugins/actions/markdown-toggle-plugin"
-import { MaxLengthPlugin } from "@/components/editor/plugins/actions/max-length-plugin"
 import { ShareContentPlugin } from "@/components/editor/plugins/actions/share-content-plugin"
 import { SpeechToTextPlugin } from "@/components/editor/plugins/actions/speech-to-text-plugin"
 import { TreeViewPlugin } from "@/components/editor/plugins/actions/tree-view-plugin"
@@ -120,7 +118,7 @@ export function Plugins({ }) {
     }
 
     return (
-        <div className="flex flex-col h-full overflow-hidden relative">
+        <div className="flex flex-col h-full min-h-0 overflow-hidden relative">
             <div className="flex-none shrink-0 z-20">
                 <ToolbarPlugin>
                     {({ blockType }) => (
@@ -168,7 +166,7 @@ export function Plugins({ }) {
                     )}
                 </ToolbarPlugin>
             </div>
-            <div className="flex-1 overflow-y-auto relative w-full h-full">
+            <div className="flex-1 min-h-0 overflow-y-auto relative w-full">
                 <AutoFocusPlugin />
                 <RichTextPlugin
                     contentEditable={
@@ -222,7 +220,7 @@ export function Plugins({ }) {
                         ...TEXT_MATCH_TRANSFORMERS,
                     ]}
                 />
-                <TypingPerfPlugin />
+                {process.env.DEVTOOL_ENABLED === "true" && <TypingPerfPlugin />}
                 <TabFocusPlugin />
                 <AutocompletePlugin />
                 <AutoLinkPlugin />
