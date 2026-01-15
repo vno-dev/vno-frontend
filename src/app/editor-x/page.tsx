@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import { SerializedEditorState } from "lexical";
 import { Editor } from "@/components/blocks/editor-x/editor";
 import { Main } from "@/components/layouts/main";
+import { SerializedEditorState } from "lexical";
+import { useState } from "react";
 
 export const initialValue = {
     root: {
@@ -42,12 +42,15 @@ export default function EditorPage() {
         useState<SerializedEditorState>(initialValue);
     return (
         <Main fixed className="min-h-screen">
-            <Editor
-                editorSerializedState={editorState}
-                onSerializedChange={(value) => setEditorState(value)}
-                className="flex-1"
-            />
-            <pre>{JSON.stringify(editorState, null, 2)}</pre>
+            <div className="h-[calc(100vh-24px)] grid grid-cols-2 gap-3">
+                <Editor
+                    initialSerializedState={editorState}
+                    onSerializedChange={setEditorState}
+                    className="flex-1"
+                />
+                <pre className="flex-1 overflow-y-auto">{JSON.stringify(editorState, null, 2)}</pre>
+            </div>
+
         </Main>
     );
 }

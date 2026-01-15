@@ -10,55 +10,70 @@ import { EditorState, SerializedEditorState } from "lexical"
 import { editorTheme } from "@/components/editor/themes/editor-theme"
 import { TooltipProvider } from "@/components/ui/tooltip"
 
+import { cn } from "@/lib/utils"
+import { debounce } from "lodash"
+import { useMemo } from "react"
 import { nodes } from "./nodes"
 import { Plugins } from "./plugins"
-import { cn } from "@/lib/utils"
 
-const editorConfig: InitialConfigType = {
-    namespace: "Editor",
-    theme: editorTheme,
-    nodes,
-    onError: (error: Error) => {
-        console.error(error)
-    },
+interface EditorProps {
+    initialSerializedState?: SerializedEditorState;
+    onSerializedChange?: (state: SerializedEditorState) => void;
+    className?: string;
 }
 
 export function Editor({
-    editorState,
-    editorSerializedState,
-    onChange,
+    initialSerializedState,
     onSerializedChange,
     className,
-    withToolbar = true
-}: {
-    editorState?: EditorState
-    editorSerializedState?: SerializedEditorState
-    onChange?: (editorState: EditorState) => void
-    onSerializedChange?: (editorSerializedState: SerializedEditorState) => void
-    className?: string
-    withToolbar?: boolean
-}) {
+
+}: EditorProps) {
+    console.log("Editor render");
+    const debouncedChange = useMemo(
+        () =>
+            debounce((editorState: EditorState) => {
+                onSerializedChange?.(editorState.toJSON());
+            }, 500),
+        [onSerializedChange]
+    );
+
+    const initialConfig: InitialConfigType = useMemo(() => ({
+        namespace: "Editor",
+        theme: editorTheme,
+        nodes,
+        onError: (error: Error) => {
+            console.error(error)
+        },
+        editorState: initialSerializedState
+            ? JSON.stringify(initialSerializedState)
+            : undefined,
+    }), [initialSerializedState]);
+
     return (
-        <div className={cn("bg-background overflow-hidden rounded-lg border shadow flex-1", className)}>
+        <div className={cn("bg-background overflow-hidden rounded-lg shadow",
+            "flex flex-col h-full min-h-0", className)}>
             <LexicalComposer
                 initialConfig={{
-                    ...editorConfig,
-                    ...(editorState ? { editorState } : {}),
-                    ...(editorSerializedState
-                        ? { editorState: JSON.stringify(editorSerializedState) }
+                    ...initialConfig,
+                    ...(initialSerializedState
+                        ? { editorState: JSON.stringify(initialSerializedState) }
                         : {}),
                 }}
+
             >
                 <TooltipProvider>
                     <Plugins />
 
-                    <OnChangePlugin
-                        ignoreSelectionChange={true}
-                        onChange={(editorState) => {
-                            onChange?.(editorState)
-                            onSerializedChange?.(editorState.toJSON())
-                        }}
-                    />
+                    {initialSerializedState && (
+                        <OnChangePlugin
+                            ignoreSelectionChange={true}
+                            onChange={(editorState) => {
+                                editorState.read(() => {
+                                    debouncedChange(editorState);
+                                });
+                            }}
+                        />
+                    )}
                 </TooltipProvider>
             </LexicalComposer>
         </div>
