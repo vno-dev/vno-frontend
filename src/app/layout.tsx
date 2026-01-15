@@ -8,6 +8,7 @@ import { DEFAULT_METADATA } from "@/config/metadata";
 import { cn } from "@/lib/utils";
 import { DEVTOOL } from "@/config/env";
 import Providers from "./providers";
+import { Analytics } from "@vercel/analytics/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -74,6 +75,8 @@ export default async function RootLayout({
         )}
       >
         <Providers>{children}</Providers>
+
+        <Analytics />
 
         {DEVTOOL.ENABLED && (
           <div
