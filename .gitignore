@@ -47,4 +47,3 @@ videos/*
 !videos/*.js
 !videos/*.ts
 public/_next-video
-/videos
