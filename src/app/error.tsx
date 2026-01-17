@@ -1,6 +1,6 @@
 "use client";
 import { HeroGeometric } from "@/components/decoraters/background/shape";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 const ErrorBoundary = ({
     error,

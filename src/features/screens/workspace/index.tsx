@@ -1,30 +1,30 @@
 "use client";
 
-import React, { useState, Fragment, useMemo } from "react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { apiClient, IPage } from "@/apis/vno";
+import { CardActionRipple } from "@/components/common/card";
+import { Typography } from "@/components/common/typography";
+import { AppEditor } from "@/components/editor/app-editor";
+import { Main } from "@/components/layouts/main-container";
 import { QueryArrayWrapper, QueryObjectWrapper } from "@/components/query-data";
+import { Button } from "@/components/ui/button";
+import {
+    InputGroup,
+    InputGroupAddon,
+    InputGroupInput,
+} from "@/components/ui/input-group";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { date } from "@/lib/d";
 import { cn } from "@/lib/utils";
+import { normalizeLexicalState } from "@/utils";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { SerializedEditorState } from "lexical";
 import {
     MessagesSquare,
     Plus,
     Search,
 } from "lucide-react";
 import { useQueryState } from "nuqs";
-import { Main } from "@/components/layouts/main";
-import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Typography } from "@/components/common/typography";
-import {
-    InputGroup,
-    InputGroupAddon,
-    InputGroupInput,
-} from "@/components/ui/input-group";
-import { CardActionRipple } from "@/components/common/card";
-import { date } from "@/lib/d";
-import { Editor } from "@/components/blocks/editor-x/editor";
-import { SerializedEditorState } from "lexical";
-import { normalizeLexicalState } from "@/utils";
+import { Fragment, useMemo, useState } from "react";
 
 interface WorkspaceScreenProps {
     slug: string;
@@ -49,7 +49,7 @@ export const WorkspaceScreen = ({ slug }: WorkspaceScreenProps) => {
     } = useQuery({
         queryKey: ["page/block", page],
         queryFn: () =>
-            apiClient.blocks.getBlocks({
+            apiClient.blocks.private.getBlocks({
                 params: { pageId: page },
             }),
         enabled: !!page,
@@ -234,9 +234,9 @@ export const WorkspaceScreen = ({ slug }: WorkspaceScreenProps) => {
 
                                 return (
 
-                                    <Editor
+                                    <AppEditor
                                         key={page}
-                                        editorSerializedState={
+                                        initialSerializedState={
                                             stateFallback as unknown as SerializedEditorState
                                         }
                                     />

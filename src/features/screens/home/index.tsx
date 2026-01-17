@@ -1,25 +1,23 @@
-import React from "react";
+import AppFooter from "@/components/layouts/app-footer";
+import AppHeader from "@/components/layouts/app-header";
 import {
-  HomeScreenActivities,
-  HomeScreenChecklist,
-  HomeScreenMainBoard,
-  HomeScreenRecently,
+    HomeScreenHero,
+    HomeScreenIntroduce,
+    HomeScreenTrusted
 } from "./components";
-import { Main } from "@/components/layouts/main";
 
 const HomePageScreen = () => {
-  return (
-    <Main className="grid grid-cols-12 gap-6">
-      <div className="col-span-12 lg:col-span-8 space-y-10">
-        <HomeScreenMainBoard />
-        <HomeScreenRecently />
-      </div>
-      <div className="col-span-12 lg:col-span-4 space-y-10">
-        <HomeScreenChecklist />
-        <HomeScreenActivities />
-      </div>
-    </Main>
-  );
+    return (
+        <>
+            <AppHeader />
+            <main>
+                <HomeScreenHero />
+                <HomeScreenTrusted />
+                <HomeScreenIntroduce />
+            </main>
+            <AppFooter />
+        </>
+    );
 };
 
 export default HomePageScreen;

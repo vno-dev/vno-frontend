@@ -1,7 +1,7 @@
 "use client";
 
-import { Editor } from "@/components/blocks/editor-x/editor";
-import { Main } from "@/components/layouts/main";
+import { AppEditor } from "@/components/editor/app-editor";
+import { Main } from "@/components/layouts/main-container";
 import { SerializedEditorState } from "lexical";
 import { useState } from "react";
 
@@ -43,7 +43,7 @@ export default function EditorPage() {
     return (
         <Main fixed className="min-h-screen">
             <div className="h-[calc(100vh-24px)] grid grid-cols-2 gap-3">
-                <Editor
+                <AppEditor
                     initialSerializedState={editorState}
                     onSerializedChange={setEditorState}
                     className="flex-1"

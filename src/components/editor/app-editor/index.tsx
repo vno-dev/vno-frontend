@@ -22,7 +22,7 @@ interface EditorProps {
     className?: string;
 }
 
-export function Editor({
+export function AppEditor({
     initialSerializedState,
     onSerializedChange,
     className,
