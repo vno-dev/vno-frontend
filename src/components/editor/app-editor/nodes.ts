@@ -65,106 +65,148 @@ export const nodes: ReadonlyArray<Klass<LexicalNode> | LexicalNodeReplacement> =
         IdHorizontalRuleNode,
         {
             replace: HeadingNode,
-            with: (node: HeadingNode) => new IdHeadingNode(node.getTag()),
+            with: (node: HeadingNode) => {
+                const existingId = 'getId' in node && typeof (node as any).getId === 'function' ? (node as any).getId() : undefined;
+                return new IdHeadingNode(node.getTag(), existingId);
+            },
             withKlass: IdHeadingNode,
         },
         {
             replace: ParagraphNode,
-            with: (node: ParagraphNode) => new IdParagraphNode(),
+            with: (node: ParagraphNode) => {
+                console.log(node);
+                const existingId = 'getId' in node && typeof (node as any).getId === 'function' ? (node as any).getId() : undefined;
+                return new IdParagraphNode(existingId);
+            },
             withKlass: IdParagraphNode,
         },
         {
             replace: QuoteNode,
-            with: (node: QuoteNode) => new IdQuoteNode(undefined, undefined),
+            with: (node: QuoteNode) => {
+                const existingId = 'getId' in node && typeof (node as any).getId === 'function' ? (node as any).getId() : undefined;
+                return new IdQuoteNode(existingId);
+            },
             withKlass: IdQuoteNode,
         },
         {
             replace: ListNode,
-            with: (node: ListNode) => new IdListNode(node.getListType(), node.getStart(), undefined, undefined),
+            with: (node: ListNode) => {
+                const existingId = 'getId' in node && typeof (node as any).getId === 'function' ? (node as any).getId() : undefined;
+                return new IdListNode(node.getListType(), node.getStart(), existingId);
+            },
             withKlass: IdListNode,
         },
         {
             replace: ListItemNode,
-            with: (node: ListItemNode) => new IdListItemNode(node.getValue(), node.getChecked(), undefined, undefined),
+            with: (node: ListItemNode) => {
+                const existingId = 'getId' in node && typeof (node as any).getId === 'function' ? (node as any).getId() : undefined;
+                return new IdListItemNode(node.getValue(), node.getChecked(), existingId);
+            },
             withKlass: IdListItemNode,
         },
         {
             replace: LinkNode,
-            with: (node: LinkNode) => new IdLinkNode(
-                node.getURL(),
-                {
-                    target: node.getTarget() || undefined,
-                    rel: node.getRel() || undefined,
-                    title: node.getTitle() || undefined,
-                },
-                undefined,
-                undefined
-            ),
+            with: (node: LinkNode) => {
+                const existingId = 'getId' in node && typeof (node as any).getId === 'function' ? (node as any).getId() : undefined;
+                return new IdLinkNode(
+                    node.getURL(),
+                    {
+                        target: node.getTarget() || undefined,
+                        rel: node.getRel() || undefined,
+                        title: node.getTitle() || undefined,
+                    },
+                    existingId
+                );
+            },
             withKlass: IdLinkNode,
         },
         {
             replace: AutoLinkNode,
-            with: (node: AutoLinkNode) => new IdAutoLinkNode(
-                node.getURL(),
-                {
-                    target: node.getTarget() || undefined,
-                    rel: node.getRel() || undefined,
-                    title: node.getTitle() || undefined,
-                },
-                undefined,
-                undefined
-            ),
+            with: (node: AutoLinkNode) => {
+                const existingId = 'getId' in node && typeof (node as any).getId === 'function' ? (node as any).getId() : undefined;
+                return new IdAutoLinkNode(
+                    node.getURL(),
+                    {
+                        target: node.getTarget() || undefined,
+                        rel: node.getRel() || undefined,
+                        title: node.getTitle() || undefined,
+                    },
+                    existingId
+                );
+            },
             withKlass: IdAutoLinkNode,
         },
         {
             replace: OverflowNode,
-            with: (node: OverflowNode) => new IdOverflowNode(undefined, undefined),
+            with: (node: OverflowNode) => {
+                const existingId = 'getId' in node && typeof (node as any).getId === 'function' ? (node as any).getId() : undefined;
+                return new IdOverflowNode(existingId);
+            },
             withKlass: IdOverflowNode,
         },
         {
             replace: HashtagNode,
-            with: (node: HashtagNode) => new IdHashtagNode(node.getTextContent(), undefined, undefined),
+            with: (node: HashtagNode) => {
+                const existingId = 'getId' in node && typeof (node as any).getId === 'function' ? (node as any).getId() : undefined;
+                return new IdHashtagNode(node.getTextContent(), existingId);
+            },
             withKlass: IdHashtagNode,
         },
         {
             replace: TableNode,
-            with: (node: TableNode) => new IdTableNode(undefined, undefined),
+            with: (node: TableNode) => {
+                const existingId = 'getId' in node && typeof (node as any).getId === 'function' ? (node as any).getId() : undefined;
+                return new IdTableNode(existingId);
+            },
             withKlass: IdTableNode,
         },
         {
             replace: TableCellNode,
-            with: (node: TableCellNode) => new IdTableCellNode(
-                node.getHeaderStyles(),
-                node.getColSpan(),
-                node.getWidth() || undefined,
-                undefined,
-                undefined
-            ),
+            with: (node: TableCellNode) => {
+                const existingId = 'getId' in node && typeof (node as any).getId === 'function' ? (node as any).getId() : undefined;
+                return new IdTableCellNode(
+                    node.getHeaderStyles(),
+                    node.getColSpan(),
+                    node.getWidth() || undefined,
+                    existingId
+                );
+            },
             withKlass: IdTableCellNode,
         },
         {
             replace: TableRowNode,
-            with: (node: TableRowNode) => new IdTableRowNode(node.getHeight(), undefined, undefined),
+            with: (node: TableRowNode) => {
+                const existingId = 'getId' in node && typeof (node as any).getId === 'function' ? (node as any).getId() : undefined;
+                return new IdTableRowNode(node.getHeight(), existingId);
+            },
             withKlass: IdTableRowNode,
         },
         {
             replace: CodeNode,
-            with: (node: CodeNode) => new IdCodeNode(node.getLanguage(), undefined, undefined),
+            with: (node: CodeNode) => {
+                const existingId = 'getId' in node && typeof (node as any).getId === 'function' ? (node as any).getId() : undefined;
+                return new IdCodeNode(node.getLanguage(), existingId);
+            },
             withKlass: IdCodeNode,
         },
         {
             replace: CodeHighlightNode,
-            with: (node: CodeHighlightNode) => new IdCodeHighlightNode(
-                node.getTextContent(),
-                node.getHighlightType(),
-                undefined,
-                undefined
-            ),
+            with: (node: CodeHighlightNode) => {
+                const existingId = 'getId' in node && typeof (node as any).getId === 'function' ? (node as any).getId() : undefined;
+                return new IdCodeHighlightNode(
+                    node.getTextContent(),
+                    node.getHighlightType(),
+                    existingId
+                );
+            },
             withKlass: IdCodeHighlightNode,
         },
         {
             replace: HorizontalRuleNode,
-            with: (node: HorizontalRuleNode) => new IdHorizontalRuleNode(undefined, undefined),
+            with: (node: HorizontalRuleNode) => {
+                const existingId = 'getId' in node && typeof (node as any).getId === 'function' ? (node as any).getId() : undefined;
+                return new IdHorizontalRuleNode(existingId);
+            },
             withKlass: IdHorizontalRuleNode,
         },
         MentionNode,

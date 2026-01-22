@@ -52,7 +52,7 @@ const Hero: React.FC = () => {
                             <div className="grid grid-cols-12 gap-10">
                                 <div className="col-span-8 space-y-8">
                                     <TextType
-                                        className="text-2xl font-bold text-foreground/80 mb-2 tracking-tight min-h-[92px]"
+                                        className="text-2xl font-bold text-foreground/80 mb-2 tracking-tight min-h-[96px]"
                                         text={["Ask questions, get summaries, and edit content across your entire workspace. AI that actually knows your work.", "Connected tasks, timelines, and status reports. Manage everything from high-level goals to daily tasks.", "A clean canvas for your best ideas. Embed data, videos, and interactive components with ease."]}
                                         typingSpeed={75}
                                         pauseDuration={1500}
