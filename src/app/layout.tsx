@@ -58,9 +58,9 @@ export default async function RootLayout({
 
     return (
         <html
-            translate="no"
             lang={locale}
             suppressHydrationWarning
+            className="scroll-smooth"
         >
             <body
                 className={cn(

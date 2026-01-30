@@ -1,10 +1,9 @@
 import ProfileScreen from '@/features/screens/(settings)/profile'
-import React from 'react'
 
 const SettingPage = () => {
-  return (
-    <ProfileScreen/>
-  )
+    return (
+        <ProfileScreen />
+    )
 }
 
 export default SettingPage
